@@ -32,24 +32,9 @@ def read_ncdf_field(pfname, varname):
 # Out level
 outlvl=[100000, 92500, 85000, 70000, 50000, 20000, 10000]
 
-# get parameter and download the file
+# get filename
 d_time_str=sys.argv[1]
-down_time_obj = datetime.datetime.strptime(d_time_str, '%Y%m%d%H')
 
-add_line='ftp://nomads.ncdc.noaa.gov/GFS/analysis_only/'+down_time_obj.strftime('%Y%m')+'/'+down_time_obj.strftime('%Y%m%d')+'/gfsanl_4_'+down_time_obj.strftime('%Y%m%d')+'_'+down_time_obj.strftime('%H')+'00_000.grb2'
-ofile_name='gfsanl_4_'+down_time_obj.strftime('%Y%m%d')+'_'+down_time_obj.strftime('%H')+'00_000.grb2'
-ofile_ncname='gfsanl_4_'+down_time_obj.strftime('%Y%m%d')+'_'+down_time_obj.strftime('%H')+'00_000.nc'
-req=urllib2.Request(add_line)
-infile=urllib2.urlopen(req)
-print 'downloading '+ add_line+'...'
-
-outfile=open(ofile_name,'wb')
-outfile.write(infile.read())
-outfile.close()
-
-#convert to interim netcdf file
-print 'converting...'
-os.system('ncl_convert2nc '+ofile_name+' -v lv_ISBL0,lat_0,lon_0,UGRD_P0_L100_GLL0,VGRD_P0_L100_GLL0')
 
 # convert to json file
 with open('sample.json', 'r') as f:
