@@ -18,9 +18,9 @@ import numpy as np
 
 def read_ncdf_all(pfname, varname):
     ncdf = Dataset(pfname)
-    lat =ncdf.variables["lat_0"][:]
-    lon =ncdf.variables["lon_0"][:]
-    lev =ncdf.variables["lv_ISBL0"][:]
+    lat =ncdf.variables["lat"][:]
+    lon =ncdf.variables["lon"][:]
+    lev =ncdf.variables["level"][:]
     var  = ncdf.variables[varname][:,:,:]
     return lat, lon, lev, var
 
